@@ -51,4 +51,14 @@ hr {
     background-color: #f44336;
     color: white;
     margin-left: auto !important;
+    box-sizing: border-box;
+}
+
+.compose-div {
+    padding: 24px 24px 0px 24px;
+}
+
+.toolbar {
+    padding-left: 24px;
+    padding-right: 24px;
 }

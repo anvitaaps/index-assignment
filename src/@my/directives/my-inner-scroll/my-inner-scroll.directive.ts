@@ -14,13 +14,6 @@ export class myInnerScrollDirective implements OnInit, OnDestroy
     private _grandParent: any;
     private _unsubscribeAll: Subject<any>;
 
-    /**
-     * Constructor
-     *
-     * @param {ElementRef} _elementRef
-     * @param {myMatchMediaService} _myMediaMatchService
-     * @param {Renderer2} _renderer
-     */
     constructor(
         private _elementRef: ElementRef,
         private _myMediaMatchService: myMatchMediaService,
@@ -31,13 +24,6 @@ export class myInnerScrollDirective implements OnInit, OnDestroy
         this._unsubscribeAll = new Subject();
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * On init
-     */
     ngOnInit(): void
     {
         // Get the parent

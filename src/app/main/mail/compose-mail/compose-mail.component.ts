@@ -2,6 +2,7 @@ import { Component, Inject, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { IndexeddbService } from 'app/main/indexeddb.service';
+import { IndexedDBAngular } from 'indexeddb-angular';
 
 @Component({
     selector     : 'app-compose-mail',
@@ -13,23 +14,19 @@ export class ComposeMailComponent
 {
     showExtraToFields: boolean;
     composeForm: FormGroup;
-
-    /**
-     * Constructor
-     *
-     * @param {MatDialogRef<MailComposeDialogComponent>} matDialogRef
-     * @param _data
-     */
+    db = new IndexedDBAngular('myDb', 1);
     constructor(
         public matDialogRef: MatDialogRef<ComposeMailComponent>,
         @Inject(MAT_DIALOG_DATA) private _data: any,
         private indexDB: IndexeddbService
     )
     {
-        // console.log(this.indexDB)
-        this.indexDB.updateMail(_data);
-        this.indexDB.checkMails();
-        // Set the defaults
+        this.testService();
+        setTimeout(() => {
+            this.indexDB.updateMail(_data);
+            this.indexDB.checkMails();
+        }, 1000)
+        
         this.composeForm = this.createComposeForm();
         if (this._data) {
             this.composeForm.patchValue({
@@ -49,15 +46,6 @@ export class ComposeMailComponent
         console.log('data: ', _data)
     }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Create compose form
-     *
-     * @returns {FormGroup}
-     */
     createComposeForm(): FormGroup
     {
         console.log(localStorage.getItem('current_user'))
@@ -76,11 +64,18 @@ export class ComposeMailComponent
 
     }
 
-    /**
-     * Toggle extra to fields
-     */
     toggleExtraToFields(): void
     {
         this.showExtraToFields = !this.showExtraToFields;
     }
+
+    testService(){
+        this.db.createStore(1, this.createCollections);
+        
+        return this.db;
+    }
+
+    createCollections(db) {
+        db['currentTarget'].result.createObjectStore('mails', {autoIncrement:true});
+      }
 }

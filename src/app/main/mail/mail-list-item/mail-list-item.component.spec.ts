@@ -29,7 +29,7 @@
 //         mySharedModule
 //     ],
 //       declarations: [ MailListItemComponent ],
-//       providers: [{ provide: Mail, useValue: Mail}]
+//       providers: [{ provide: Mail, useValue: ''}]
 //     })
 //     .compileComponents();
 //   }));

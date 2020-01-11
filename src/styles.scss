@@ -1,28 +1,226 @@
 // Import my core library
 @import "@my/scss/core";
 
-// -----------------------------------------------------------------------------------------------------
-// @ Multiple material themes example
-// -----------------------------------------------------------------------------------------------------
+* {
+    
+    &:before, &:after {
+        box-sizing: border-box;
+    }
 
-// Define the Material palettes
-$yellow-theme-primary: mat-palette($mat-mydark);
-$yellow-theme-accent: mat-palette($mat-yellow, 600, 400, 700);
-$yellow-theme-warn: mat-palette($mat-red);
-
-// Create the Material theme object
-$yellow-theme: mat-light-theme($yellow-theme-primary, $yellow-theme-accent, $yellow-theme-warn);
-
-// Add ".yellow-theme" class to the body to activate this theme
-.yellow-theme {
-
-    // Generate the Angular Material theme
-    @include angular-material-theme($yellow-theme);
-
-    // Generate the my color classes with the new colors...
-    @include generatemyColorClasses($yellow-theme-primary, $yellow-theme-accent, $yellow-theme-warn);
+    // Remove focus outline
+    &:focus {
+        outline: none;
+    }
 }
+
+html, body {
+    display: flex;
+    flex: 1 0 auto;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #F5F5F5;
+}
+
 
 .mat-raised-button {
     line-height: 30px !important;
+}
+
+.nav-link-badge {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    font-family: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    line-height: 1.4 !important;
+    letter-spacing: -0.1px !important;
+}
+
+body {
+    font-size: 14px;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    font-weight: normal;
+}
+
+h1, .h1 {
+    font-size: 24px;
+}
+
+h2, .h2 {
+    font-size: 20px;
+}
+
+h3, .h3 {
+    font-size: 16px;
+}
+
+h4, .h4 {
+    font-size: 15px;
+}
+
+h5, .h5 {
+    font-size: 13px;
+}
+
+h6, .h6 {
+    font-size: 12px;
+}
+
+body {
+
+    ::-webkit-scrollbar {
+        width: 12px;
+        height: 12px;
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    ::-webkit-scrollbar:hover {
+        background-color: rgba(0, 0, 0, 0.12);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border: 2px solid transparent;
+        box-shadow: inset 0 0 0 24px rgba(0, 0, 0, 0.37);
+        border-radius: 24px;
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+        box-shadow: inset 0 0 0 24px rgba(0, 0, 0, 0.54);
+        border-radius: 24px;
+    }
+}
+
+.page-layout {
+    position: relative;
+    overflow: hidden;
+
+    // Carded layout
+    &.carded {
+        display: flex;
+        flex-direction: column;
+        flex: 1 0 auto;
+        width: 100%;
+        min-width: 100%;
+
+        // Left sidebar
+        &.left-sidebar {
+            flex-direction: row;
+
+            // Sidebar
+            > .sidebar {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto;
+                width: 240px;
+                min-width: 240px;
+                max-width: 240px;
+                height: auto;
+                overflow: hidden;
+
+                .content {
+                    background: transparent;
+                    flex: 1 1 auto;
+                }
+            }
+
+            // Center
+            > .center {
+                display: flex;
+                flex-direction: column;
+                flex: 1 1 auto;
+                position: relative;
+                z-index: 3;
+                margin-left: 32px;
+                // margin-right: 32px;
+                min-width: 0;
+
+                > .content-card {
+                    display: flex;
+                    flex-direction: column;
+                    flex: 1 1 auto;
+                    overflow: hidden;
+                    @include mat-elevation(7);
+
+                }
+            }
+
+            // Inner scroll
+            &.inner-scroll {
+                flex: 1 1 auto;
+
+                > .center {
+                    flex: 1 1 auto;
+
+                    > .content-card {
+                        flex: 1 1 auto;
+
+                        > .content {
+                            flex: 1 1 auto;
+                            overflow: auto;
+                        }
+                    }
+                }
+
+            }
+        }
+
+    }
+
+}
+
+.avatar {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    line-height: 40px;
+    margin: 0 8px 0 0;
+    border-radius: 50%;
+    font-size: 17px;
+    font-weight: 500;
+    text-align: center;
+    color: #FFFFFF;
+
+    &.square {
+        border-radius: 0;
+    }
+
+    &.small {
+        width: 20px;
+        min-width: 20px;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    &.big {
+        width: 72px;
+        min-width: 72px;
+        height: 72px;
+        line-height: 72px;
+    }
+
+    &.huge {
+        width: 96px;
+        min-width: 96px;
+        height: 96px;
+        line-height: 96px;
+    }
+}
+
+.avatar-wrapper {
+    position: relative;
+
+    .avatar {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
