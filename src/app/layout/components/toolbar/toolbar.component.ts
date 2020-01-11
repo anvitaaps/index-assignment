@@ -164,6 +164,7 @@ export class ToolbarComponent implements OnInit, OnDestroy
 
     logout() {
         localStorage.clear();
+        this.indexdbService.UpdateUnreadCount(0);
         this.router.navigateByUrl('/login')
     }
 }

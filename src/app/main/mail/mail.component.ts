@@ -47,6 +47,7 @@ export class MailComponent implements OnInit {
   mails:any;
   dialogRef: any;
   unreadCount;
+  title;
 
   constructor(public _matDialog: MatDialog,
               private indexDB: IndexeddbService,
@@ -57,21 +58,22 @@ export class MailComponent implements OnInit {
     this.indexDB.currentUnreadCount.subscribe(status => this.unreadCount = status);
       console.log(window.location.href);
       let type:any = (window.location.href).split('/');
+      this.title = type[type.length-1];
       console.log(type[type.length-1])
-    this.indexDB.testService();
-    window.setTimeout(() => {
-        if (type[type.length-1] == 'inbox') {
-            this.indexDB.checkMails();
-            this.indexDB.currentInbox.subscribe(mail => this.mails = mail);
-        }
-        else if (type[type.length-1] == 'sent') {
-            console.log('here')
-            this.indexDB.sentMails();
-            this.indexDB.currentSent.subscribe(mail => this.mails = mail);
-        }
-        
-        console.log(this.mails)
-    }, 500)
+        this.indexDB.testService();
+        window.setTimeout(() => {
+            if (type[type.length-1] == 'inbox') {
+                this.indexDB.checkMails();
+                this.indexDB.currentInbox.subscribe(mail => this.mails = mail);
+            }
+            else if (type[type.length-1] == 'sent') {
+                console.log('here')
+                this.indexDB.sentMails();
+                this.indexDB.currentSent.subscribe(mail => this.mails = mail);
+            }
+            
+            console.log(this.mails)
+        }, 500)
   }
 
   composeDialog(): void
@@ -122,7 +124,7 @@ export class MailComponent implements OnInit {
         this.dialogRef.afterClosed()
             .subscribe(response => {
                 window.setTimeout(() => {
-                    this.indexDB.updateMail(mail);
+                    this.indexDB.updateMail(mail);      //updates mail when mail is read by the user
                     this.indexDB.checkMails();
                     window.setTimeout(() => {
                         this.indexDB.currentInbox.subscribe(mail => {
@@ -151,16 +153,8 @@ export class MailComponent implements OnInit {
         })
     }
 
-    toggleSelectAll() {
-        console.log(this.mails);
-        this.hasSelectedMails = true;
-        this.mails.map( (mail) => {
-            mail.selected = true;
-        })
-        // this.indexDB.UpdateInbox(this.mails)
-    }
-
     deleteMails() {
+        console.log('selected mails: ', this.indexDB.selectedMails.length)
         if (this.indexDB.selectedMails.length == 0) {
             this.matsnackbar.open('No mail selected!', '', {
                 duration: 2000
@@ -168,10 +162,11 @@ export class MailComponent implements OnInit {
             return;
         }
         console.log(this.indexDB.selectedMails);
-        // this.indexDB.deleteMail();
-        // setTimeout(() => {
-        //     this.indexDB.getUnreadCount(this.mails)
-        // },500);
+        this.indexDB.deleteMail();
+        setTimeout(() => {
+            this.indexDB.checkMails();
+            this.indexDB.getUnreadCount(this.mails)
+        },500);
     }
 
 }

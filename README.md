@@ -16,16 +16,16 @@ Run `ng test` to execute the unit tests.
 
 IndexedDB - client-side storage for significant amounts of structured data.
 
-- I have used IndexedDB for storing the data and for transactions.  
+- Used IndexedDB for storing the data and for transactions.  
 
-- Initially I am creating two users statically to check the functionality of the applications and two        exchange emails between 2 users.
+- Initially creating two users statically to check the functionality of the applications and to exchange emails between 2 users.
     User 1 : email - anvita@gmail.com   
              password - 123
     User 2 : email - user@gmail.com
              password - 123
 
-- You can login with any of the above credentials and compose mail and send it to another user.
+- Please login with any of the above credentials and compose mail and send it to another user.
 
-- When you login with that another Email Id you will receive that Mail in your Inbox and Number of Unread    Mails will be displayed in the top bar.
+- Login with that another Email Id you will receive that Mail in your Inbox and Number of Unread Mails will be displayed in the top bar.
 
 

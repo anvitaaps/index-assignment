@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule, MatIconModule, MatMenuModule, MatToolbarModule, MatBadgeModule } from '@angular/material';
 
-import { mySearchBarModule } from '@my/components';
 import { mySharedModule } from '@my/shared.module';
 
 import { ToolbarComponent } from 'app/layout/components/toolbar/toolbar.component';
@@ -18,8 +17,7 @@ import { ToolbarComponent } from 'app/layout/components/toolbar/toolbar.componen
         MatMenuModule,
         MatToolbarModule,
         MatBadgeModule,
-        mySharedModule,
-        mySearchBarModule
+        mySharedModule
     ],
     exports     : [
         ToolbarComponent

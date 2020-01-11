@@ -1,7 +1,6 @@
-import { async, ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';
-// import { MailComponent } from './main/mail/mail.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatSnackBarModule } from '@angular/material';
 import { mySharedModule } from '@my/shared.module';
@@ -10,13 +9,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { myConfigService, my_CONFIG } from '@my/services/config.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IndexeddbService } from 'app/main/indexeddb.service';
-import { Router } from '@angular/router';
-import { MailModule } from 'app/main/mail/mail.module';
-
-// ADDED CLASS
-class MockRouter {
-  navigateByUrl(url: string) { return url; }
-}
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -24,11 +16,8 @@ describe('LoginComponent', () => {
   let validUser = {email: 'anvita@gmail.com', password: '123'};
   let blankUser = {email: '', password: ''};
   let indexeddb = new IndexeddbService();
-  
+
   beforeEach(async(() => {
-    class RouterStub {
-      navigateByUrl(url: string) { return url; }
-    }
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule,MatButtonModule,
         MatCheckboxModule,
@@ -39,16 +28,9 @@ describe('LoginComponent', () => {
         MatSnackBarModule, 
         CommonModule, 
         BrowserAnimationsModule,
-        // RouterTestingModule.withRoutes([
-        //   { path: 'mail/inbox', component: MailModule}
-        // ])
-      ],
+        RouterTestingModule],
       declarations: [ LoginComponent ],
-      providers: [
-        { provide: Router, useClass: MockRouter },
-        { provide: my_CONFIG, useValue: myConfigService }
-       
-      ],
+      providers: [{ provide: my_CONFIG, useValue: myConfigService }]
     })
     .compileComponents();
     fixture = TestBed.createComponent(LoginComponent);
@@ -85,7 +67,7 @@ describe('LoginComponent', () => {
     expect(component.loginForm.invalid).toBeTruthy();
   }));
 
-  it('indexedDB Service checkIfUserExists should called ', async(inject([Router], (router) => {
+  it('indexedDB Service checkIfUserExists should called ', (() => {
     updateForm(validUser.email, validUser.password);
     fixture.detectChanges();
     const button = fixture.debugElement.nativeElement.querySelector('button');
@@ -94,18 +76,6 @@ describe('LoginComponent', () => {
     spyOn(indexeddb, 'checkUserExists');
     indexeddb.checkUserExists(validUser);
     expect(indexeddb.checkUserExists).toHaveBeenCalledWith(validUser);
-    localStorage.setItem('current_user',validUser.email)
-    
-    // expect(mockRouter.navigate).toHaveBeenCalledWith(['/mail/inbox']); 
-    // expect(localStorage.getItem('current_user')).toBeTruthy();
-  })));
-  
-  it('Should log in and navigate to dashboard', inject([Router], (router: Router) => {
-    expect(localStorage.getItem('current_user')).toEqual(validUser.email);
-    const spy = spyOn(router, 'navigateByUrl');
-    const url = spy.calls.first().args[0];
-
-            expect(url).toBe('/mail/inbox');
-}));
+  }));
 
 });

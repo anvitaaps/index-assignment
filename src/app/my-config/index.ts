@@ -13,11 +13,10 @@ export const myConfig: MyConfig = {
         style    : 'vertical-layout-1',
         width    : 'fullwidth',
         navbar   : {
-            background: 'mat-my-dark-700-bg',
             folded    : false,
             hidden    : false,
             position  : 'left',
-            variant   : 'vertical-style-1'
+            variant   : 'vertical-style'
         },
         toolbar  : {
             background: 'mat-white-500-bg',

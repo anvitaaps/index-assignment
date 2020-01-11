@@ -4,11 +4,11 @@ import { MatButtonModule, MatIconModule } from '@angular/material';
 import { myNavigationModule } from '@my/components';
 import { mySharedModule } from '@my/shared.module';
 
-import { NavbarVerticalStyle1Component } from 'app/layout/components/navbar/vertical/style-1/style-1.component';
+import { NavbarVerticalStyleComponent } from 'app/layout/components/navbar/vertical/style/style.component';
 
 @NgModule({
     declarations: [
-        NavbarVerticalStyle1Component
+        NavbarVerticalStyleComponent
     ],
     imports     : [
         MatButtonModule,
@@ -18,9 +18,9 @@ import { NavbarVerticalStyle1Component } from 'app/layout/components/navbar/vert
         myNavigationModule
     ],
     exports     : [
-        NavbarVerticalStyle1Component
+        NavbarVerticalStyleComponent
     ]
 })
-export class NavbarVerticalStyle1Module
+export class layoutNavbarVerticalStyleModule
 {
 }

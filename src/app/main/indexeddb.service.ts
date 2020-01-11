@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IndexedDBAngular } from 'indexeddb-angular';
 import { BehaviorSubject } from 'rxjs';
+import { MatSnackBar } from '@angular/material';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class IndexeddbService {
 
   selectedMails:any[] = [];
   
-  constructor() { 
+  constructor(private matsnackbar: MatSnackBar) { 
     this.db.createStore(1, this.createCollections);
   }
 
@@ -42,7 +43,6 @@ export class IndexeddbService {
   getSentMails(mails) {
     this.UpdateSent(mails);
   }
-
 
   getUnreadCount(mails) {
     let count = 0;
@@ -80,6 +80,7 @@ export class IndexeddbService {
     
   }
 
+  //checks the login credentials with the users in indexedDB
   checkUserExists(data) {
     this.db.getAll('users').then((users) => {
       console.log(users, data);
@@ -93,6 +94,7 @@ export class IndexeddbService {
     })
   }
 
+  //checks the inbox mails
   checkMails() {
     console.log('check inbox')
     // localStorage.setItem("current_inbox", '');
@@ -118,6 +120,7 @@ export class IndexeddbService {
     })
   }
 
+  //function used to sort latest mail on the top
   compare(a, b) {
   // Use toUpperCase() to ignore character casing
   const timeA = a.time;
@@ -131,43 +134,32 @@ export class IndexeddbService {
   }
   return comparison;
 }
-
+  
+  //updates the background color of mat list item and set read mail to true
   updateMail(data) {
-    console.log('update mail')
-    this.db.openCursor('mails', (evt) => {
-      var cursor = evt.target['result'];
-      if(cursor) {
-          if (JSON.stringify(cursor.value) == JSON.stringify(data)) {
-            console.log(cursor.key);
-            data.read = 'true';
-            console.log('data updated: ', data)
-            this.db.update('mails', data, cursor.key).then(() => {
-                // Do something after update
-                console.log('data updated');
-            }, (error) => {
-                console.log(error);
-            });
-          }
-            
-          cursor.continue();
-      } else {
-          console.log('Entries all displayed.');
-      }
-    })
+    if (data) {
+      console.log('update mail', data)
+        data.read = true;
+        this.db.update('mails', data, data.id).then(() => {
+        }, (error) => {
+            console.log(error);
+        });
+    }
   }
 
   //user sent mail
   sentMails() {
-    console.log('check sent')
+    console.log('check sent', localStorage.getItem('current_user'))
     // localStorage.setItem("current_inbox", '');
     let sent_mails = [];
     this.db.openCursor('mails', (evt) => {
       var cursor = evt.target['result'];
       if(cursor) {
           console.log(cursor);
-          if (cursor.value.from == localStorage.getItem('current_user'))
-          cursor.value.read = true;
-          sent_mails.push(cursor.value);
+          if (cursor.value.from == localStorage.getItem('current_user')) {
+            cursor.value.read = true;
+            sent_mails.push(cursor.value);
+          }
           cursor.continue();
       } else {
           console.log('sent mail: ', sent_mails, sent_mails.sort(this.compare));
@@ -185,6 +177,9 @@ export class IndexeddbService {
       this.db.delete('mails', mail.id).then(evt => {
         console.log(evt);
         this.checkMails();
+        this.matsnackbar.open('Mail deleted!', '', {
+          duration: 2000
+      });
       }), (error) => {
         console.log(error)
       }

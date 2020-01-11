@@ -9,12 +9,12 @@ import { myPerfectScrollbarDirective } from '@my/directives/my-perfect-scrollbar
 import { mySidebarService } from '@my/components/sidebar/sidebar.service';
 
 @Component({
-    selector     : 'navbar-vertical-style-1',
-    templateUrl  : './style-1.component.html',
-    styleUrls    : ['./style-1.component.scss'],
+    selector     : 'navbar-vertical-style',
+    templateUrl  : './style.component.html',
+    styleUrls    : ['./style.component.scss'],
     encapsulation: ViewEncapsulation.None
 })
-export class NavbarVerticalStyle1Component implements OnInit, OnDestroy
+export class NavbarVerticalStyleComponent implements OnInit, OnDestroy
 {
     myConfig: any;
     myPerfectScrollbarUpdateTimeout: any;

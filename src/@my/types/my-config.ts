@@ -4,7 +4,6 @@ export interface MyConfig
         style: string,
         width: 'fullwidth' | 'boxed',
         navbar: {
-            background: string,
             hidden: boolean,
             folded: boolean,
             position: 'left' | 'right' | 'top',

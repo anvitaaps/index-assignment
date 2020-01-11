@@ -9,7 +9,7 @@ my-sidebar {
 
             navbar {
 
-                navbar-vertical-style-1 {
+                navbar-vertical-style {
 
                     .navbar-top {
                         padding: 12px 0;
@@ -53,6 +53,7 @@ my-sidebar {
                             .username,
                             .email {
                                 display: none;
+                                color: white !important;
                             }
                         }
 
@@ -68,29 +69,21 @@ my-sidebar {
 
 navbar {
 
-    &.vertical-style-1 {
+    &.vertical-style {
         display: flex;
         flex-direction: column;
         flex: 1 1 auto;
         width: 100%;
         height: 100%;
 
-        &.right-navbar {
-
-            .toggle-sidebar-opened {
-
-                mat-icon {
-                    transform: rotate(180deg);
-                }
-            }
-        }
     }
 
-    navbar-vertical-style-1 {
+    navbar-vertical-style{
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 100%;
+        background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat !important;
 
         .navbar-top {
             display: flex;
@@ -102,12 +95,6 @@ navbar {
             max-height: 64px;
             height: 64px;
             padding: 12px 12px 12px 20px;
-
-            @include media-breakpoint('xs') {
-                min-height: 56px;
-                max-height: 56px;
-                height: 56px;
-            }
 
             .logo {
                 display: flex;
@@ -147,7 +134,7 @@ navbar {
             .user {
                 position: relative;
                 display: flex;
-                // align-items: center;
+                color: white;
                 justify-content: flex-start;
                 width: 100%;
                 padding: 4px 0 0 20px;

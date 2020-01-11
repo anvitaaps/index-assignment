@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit
     }
 
     login() {
-        this.indexDB.testService();
+        this.indexDB.testService();     // called to create the db and collections
         window.setTimeout(() => {
             
             this.indexDB.checkUserExists({email: this.loginForm.controls.email.value, password: this.loginForm.controls.password.value})

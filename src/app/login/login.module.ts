@@ -21,10 +21,8 @@ const routes = [
     MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule,
     mySharedModule,
-    MatSnackBarModule,
-    ReactiveFormsModule
+    MatSnackBarModule
   ],
   declarations: [LoginComponent]
 })

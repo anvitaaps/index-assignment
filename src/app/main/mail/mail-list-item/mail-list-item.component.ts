@@ -28,11 +28,18 @@ export class MailListItemComponent implements OnInit
         this.mail = new Mail(this.mail);
     }
 
-    onSelectedChange(): void
+    onSelectedChange(mail): void
     {
-        console.log((this.indexDB.selectedMails.indexOf(this.mail)));
-        if (this.mail.selected == true && this.indexDB.selectedMails.indexOf(this.mail)<0)
-        this.indexDB.selectedMails.push(this.mail)
+        console.log((this.indexDB.selectedMails.indexOf(this.mail)), mail);
+        if (mail == true && this.indexDB.selectedMails.indexOf(this.mail)<0) {
+            this.indexDB.selectedMails.push(this.mail);
+            console.log('selected mails: ', this.indexDB.selectedMails)
+        }   
+        else {
+            let index = this.indexDB.selectedMails.indexOf(this.mail);
+            this.indexDB.selectedMails.splice(index, 1);
+            console.log('selected mails: ', this.indexDB.selectedMails)
+        }
     }
 
 }

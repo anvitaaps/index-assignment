@@ -4,7 +4,9 @@ i {
     color: rgba(0, 0, 0, 0.54);
 }
 
-.hint-text,
+.hint-text {
+    color: white;
+}
 .disabled-text {
     color: rgba(0, 0, 0, 0.38);
 }

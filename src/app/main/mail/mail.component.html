@@ -60,21 +60,8 @@
       <!-- CONTENT TOOLBAR -->
       <div class="toolbar px-24 py-8">
 
-          <h3 flex="column" fxFlex="99"><strong>Inbox ({{mails ? mails.length : '0'}})</strong></h3>
+          <h3 flex="column" fxFlex="99"><strong>{{ title | titlecase}} <span>({{mails ? mails.length : '0'}})</span></strong></h3>
           <div *ngIf="mails && mails.length > 0" class="mail-selection">
-              <!-- <mat-checkbox (click)="toggleSelectAll()" [checked]="hasSelectedMails"
-                            [indeterminate]="isIndeterminate"></mat-checkbox>
-
-              <button mat-icon-button [matMenuTriggerFor]="selectMenu">
-                  <mat-icon>arrow_drop_down</mat-icon>
-              </button>
-              <mat-menu #selectMenu="matMenu">
-                  <button mat-menu-item (click)="selectMails()">All</button>
-                  <button mat-menu-item (click)="deselectMails()">None</button>
-                  <button mat-menu-item (click)="selectMails('read', true)">Read</button>
-              </mat-menu> -->
-
-              <!-- <div class="toolbar-separator" *ngIf="hasSelectedMails"></div> -->
 
               <button mat-icon-button (click)="deleteMails()">
                   <mat-icon class="secondary-text" matTooltip="Delete selected mails">delete</mat-icon>
@@ -82,16 +69,11 @@
 
           </div>
 
-          <!-- <div *ngIf="currentMail" fxHide.gt-xs>
-              <button mat-icon-button (click)="deselectCurrentMail()">
-                  <mat-icon class="secondary-text">arrow_back</mat-icon>
-              </button>
-          </div> -->
       </div>
       <!-- / CONTENT TOOLBAR -->
 
       <!-- CONTENT -->
-      <div class="content" fxLayout="row">
+      <div class="content" fxLayout="row" style="overflow: auto;">
 
           <!-- Mail list item -->
           <div class="mail-list">
